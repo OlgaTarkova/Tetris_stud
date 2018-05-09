@@ -48,7 +48,7 @@ class Figure  {
                 break;
             }
             case 37: { // left
-                this.moveLeft(field,figType, figX, figY);
+                this.moveLeft(field, figX, figY);
                 break;
             }
         }
@@ -56,7 +56,7 @@ class Figure  {
     public moveRight(field: boolean[][], figX: number, figY: number){
         return field[figX + 1][figY];
     }
-    public moveLeft(field: boolean[][], figType: number, figX: number, figY: number){
+    public moveLeft(field: boolean[][], figX: number, figY: number){
         return field[figX - 1][figY];
     }
 
