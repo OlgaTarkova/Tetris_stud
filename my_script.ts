@@ -35,6 +35,7 @@ class Figure  {
     drawOrClear: boolean;
     //setPos = FIELD_WIDTH/2 -2;
 
+
     constructor(field: boolean[][],  figX: number, figY: number, drawOrClear: boolean ){
         field = this.field;
         figX = this.figX;
@@ -48,6 +49,7 @@ class Figure  {
         return field[figX - 1][figY];
     }
     public moveFigure(event: KeyboardEvent){
+
         switch(event.keyCode){
             case 39: { // right
                 this.moveRight(field, figX, figY);
@@ -58,6 +60,10 @@ class Figure  {
                 break;
             }
         }
+
+    }
+    public moveListner() {
+        document.addEventListener("keydown", this.moveFigure);
     }
 }
 
@@ -171,4 +177,3 @@ function onInterval(){
 setInterval(function(){ onInterval() }, 1000);
 
 
-document.addEventListener("keydown", Figure.moveFigure(event));
