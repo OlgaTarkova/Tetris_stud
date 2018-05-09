@@ -33,7 +33,7 @@ class Figure  {
     figX: number;
     figY: number;
     drawOrClear: boolean;
-    setPos = FIELD_WIDTH/2 -2;
+    //setPos = FIELD_WIDTH/2 -2;
 
     constructor(field: boolean[][],  figX: number, figY: number, drawOrClear: boolean ){
         field = this.field;
@@ -41,10 +41,16 @@ class Figure  {
         figY = this.figY;
         drawOrClear = this.drawOrClear;
     }
+    public moveRight(field: boolean[][], figX: number, figY: number){
+        return field[figX + 1][figY];
+    }
+    public moveLeft(field: boolean[][], figX: number, figY: number){
+        return field[figX - 1][figY];
+    }
     public moveFigure(event: KeyboardEvent){
         switch(event.keyCode){
             case 39: { // right
-                this.moveRight(field, figX, figY);
+                moveRight(field, figX, figY);
                 break;
             }
             case 37: { // left
@@ -53,23 +59,16 @@ class Figure  {
             }
         }
     }
-    public moveRight(field: boolean[][], figX: number, figY: number){
-        return field[figX + 1][figY];
-    }
-    public moveLeft(field: boolean[][], figX: number, figY: number){
-        return field[figX - 1][figY];
-    }
-
 }
 
 class Squre extends Figure{
     constructor(field: boolean[][],  figX: number, figY: number, drawOrClear: boolean ){
         super(field, figX, figY, drawOrClear );
 
-        field [figX][figY] = this.drawOrClear;
-        field [figX + 1][figY] = this.drawOrClear;
-        field [figX][figY + 1] = this.drawOrClear;
-        field [figX + 1][figY + 1] = this.drawOrClear;
+        field [figX][figY] = drawOrClear;
+        field [figX + 1][figY] = drawOrClear;
+        field [figX][figY + 1] = drawOrClear;
+        field [figX + 1][figY + 1] = drawOrClear;
     }
 }
 
@@ -152,7 +151,7 @@ function isFigureDown (field: boolean[][], figType: number, figX: number, figY: 
 function onInterval(){
     if (figType == -1){
         figType = Math.floor(Math.random() * 4);
-        figX = FIELD_WIDTH/2 - 2;
+        figX = FIELD_WIDTH/2 -2;
         figY = 1;
         applyFigure(field, figType, figX, figY, true);
     } else {
@@ -172,4 +171,4 @@ function onInterval(){
 setInterval(function(){ onInterval() }, 1000);
 
 
-document.addEventListener("keydown", moveFigure);
+document.addEventListener("keydown", Figure.moveFigure(event));
