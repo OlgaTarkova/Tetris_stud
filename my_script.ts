@@ -50,7 +50,7 @@ class Figure  {
     public moveFigure(event: KeyboardEvent){
         switch(event.keyCode){
             case 39: { // right
-                moveRight(field, figX, figY);
+                this.moveRight(field, figX, figY);
                 break;
             }
             case 37: { // left
