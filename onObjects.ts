@@ -11,10 +11,6 @@ class Field{
     elField:HTMLElement = document.getElementById("field");
 
     constructor() {
-       this.data = this.initField();
-    }
-
-    public initField():boolean[][]{
         this.data = [];
         for(let x = 0; x < FIELD_WIDTH; x++) {
             let fieldCol : boolean[] = [];
@@ -23,8 +19,9 @@ class Field{
             }
             this.data.push(fieldCol);
         }
-        return this.data;
+        return this;
     }
+
     public drawField() {
         let html: string = "";
         for(let y = 0; y < FIELD_HEIGHT; y++){

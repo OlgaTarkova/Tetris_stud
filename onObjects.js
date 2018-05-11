@@ -3,9 +3,6 @@ var FIELD_HEIGHT = 25;
 var Field = (function () {
     function Field() {
         this.elField = document.getElementById("field");
-        this.data = this.initField();
-    }
-    Field.prototype.initField = function () {
         this.data = [];
         for (var x = 0; x < FIELD_WIDTH; x++) {
             var fieldCol = [];
@@ -14,8 +11,8 @@ var Field = (function () {
             }
             this.data.push(fieldCol);
         }
-        return this.data;
-    };
+        return this;
+    }
     Field.prototype.drawField = function () {
         var html = "";
         for (var y = 0; y < FIELD_HEIGHT; y++) {
