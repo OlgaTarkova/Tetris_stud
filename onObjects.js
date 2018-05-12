@@ -95,8 +95,6 @@ var Game = (function () {
     Game.prototype.draw = function () {
         this.field.draw();
         this.currentFigure = this.newFigure();
-        //this.figX = this.field.fieldWidth / 2 - 2;
-        //this.figY = 1;
     };
     Game.prototype.newFigure = function () {
         var randomFigure = Math.floor(Math.random() * 4);

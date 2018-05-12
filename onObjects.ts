@@ -93,8 +93,6 @@ class Game {
         this.field.draw();
 
         this.currentFigure = this.newFigure();
-        //this.figX = this.field.fieldWidth / 2 - 2;
-        //this.figY = 1;
     }
 
     private newFigure(): Figure{
