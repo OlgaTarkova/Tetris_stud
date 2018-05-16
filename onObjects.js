@@ -1,107 +1,190 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Field = (function () {
-    function Field() {
-        this.fieldWidth = 12;
-        this.fieldHeight = 25;
+/*class Field {
+    readonly WIDTH = 12;
+    readonly HEIGHT = 25;
+    protected data: boolean[][];
+    protected el: HTMLElement;
+    protected setPositionX: number;
+
+    constructor() {
+        this.el = document.getElementById("field");
+
+        this.data = [];
+        for (let x = 0; x < this.WIDTH; x++) {
+            let dataColumns: boolean[] = [];
+            for (let y = 0; y < this.HEIGHT; y++) {
+                dataColumns.push((x == 0) || (x == this.WIDTH - 1) || (y == this.HEIGHT - 1));
+            }
+            this.data.push(dataColumns);
+        }
+    }
+
+    public selfDraw() {
+        let html: string = "";
+        for (let y = 0; y < this.HEIGHT; y++) {
+            for (let x = 0; x < this.WIDTH; x++) {
+                html += this.data[x][y] ? "*" : " ";
+            }
+            html += "<br>";
+        }
+        this.el.innerHTML = html;
+    }
+    public draw(figure:Figure) {
+        this.drawFigure(figure);
+    }
+    private drawFigure(figure:Figure){
+        figure = new Figure();
+    }
+
+}
+
+class Figure{
+    //protected x: number;
+    //protected y: number;
+    //protected field: Field;
+    //protected drawOrClear: boolean;
+
+    constructor(){}
+}
+class FigureSquare extends Figure {
+    constructor(){
+        super();
+        this.field[this.x][this.y] = this.drawOrClear;
+        this.field[this.x + 1][this.y] = this.drawOrClear;
+        this.field[this.x][this.y + 1] = this.drawOrClear;
+        this.field[this.x + 1][this.y + 1] = this.drawOrClear;
+
+    }
+}
+class FigureHorizontal extends Figure {
+    constructor() {
+        super();
+        this.field[this.x][this.y] = this.drawOrClear;
+        this.field[this.x + 1][this.y] = this.drawOrClear;
+        this.field[this.x + 2][this.y] = this.drawOrClear;
+        this.field[this.x + 3][this.y] = this.drawOrClear;
+    }
+}
+class FigureZ extends Figure {
+    constructor(){
+        super();
+        this.field[this.x][this.y] = this.drawOrClear;
+        this.field[this.x + 1][this.y] = this.drawOrClear;
+        this.field[this.x + 1][this.y + 1] = this.drawOrClear;
+        this.field[this.x + 2][this.y + 1] = this.drawOrClear;
+    }
+}
+class FigureL extends Figure {
+    constructor(){
+        super();
+        this.field[this.x][this.y] = this.drawOrClear;
+        this.field[this.x + 1][this.y] = this.drawOrClear;
+        this.field[this.x + 2][this.y] = this.drawOrClear;
+        this.field[this.x + 2][this.y + 1] = this.drawOrClear;
+    }
+}
+let field: Field = new Field();
+field.selfDraw();
+
+
+*/
+/*class Figure {
+    protected figX: number;
+    protected figY: number;
+    protected field: Field;
+    protected drawOrClear: boolean;
+    setPosition: number;
+    protected figType : number;
+
+    constructor(){}
+
+}
+class FigureSquare extends Figure {
+    constructor(){
+        super();
+        this.field[this.figX][this.figY] = this.drawOrClear;
+        this.field[this.figX + 1][this.figY] = this.drawOrClear;
+        this.field[this.figX][this.figY + 1] = this.drawOrClear;
+        this.field[this.figX + 1][this.figY + 1] = this.drawOrClear;
+
+    }
+}
+class FigureHorizontal extends Figure {
+    constructor() {
+        super();
+        this.field[this.figX][this.figY] = this.drawOrClear;
+        this.field[this.figX + 1][this.figY] = this.drawOrClear;
+        this.field[this.figX + 2][this.figY] = this.drawOrClear;
+        this.field[this.figX + 3][this.figY] = this.drawOrClear;
+    }
+}
+class FigureZ extends Figure {
+    constructor(){
+        super();
+        this.field[this.figX][this.figY] = this.drawOrClear;
+        this.field[this.figX + 1][this.figY] = this.drawOrClear;
+        this.field[this.figX + 1][this.figY + 1] = this.drawOrClear;
+        this.field[this.figX + 2][this.figY + 1] = this.drawOrClear;
+    }
+}
+class FigureL extends Figure {
+    constructor(){
+        super();
+        this.field[this.figX][this.figY] = this.drawOrClear;
+        this.field[this.figX + 1][this.figY] = this.drawOrClear;
+        this.field[this.figX + 2][this.figY] = this.drawOrClear;
+        this.field[this.figX + 2][this.figY + 1] = this.drawOrClear;
+    }
+}
+
+class Field {
+    readonly fieldWidth = 12;
+    readonly fieldHeight = 25;
+    protected data: boolean[][];
+    protected elField: HTMLElement;
+    figure: Figure;
+
+    constructor() {
         this.elField = document.getElementById("field");
         this.data = [];
-        for (var x = 0; x < this.fieldWidth; x++) {
-            var fieldCol = [];
-            for (var y = 0; y < this.fieldHeight; y++) {
+        for (let x = 0; x < this.fieldWidth; x++) {
+            let fieldCol : boolean[] = [];
+            for(let y = 0; y < this.fieldHeight; y++) {
                 fieldCol.push((x == 0) || (x == this.fieldWidth - 1) || (y == this.fieldHeight - 1));
             }
             this.data.push(fieldCol);
         }
     }
-    Field.prototype.draw = function () {
-        var html = "";
-        for (var y = 0; y < this.fieldHeight; y++) {
-            for (var x = 0; x < this.fieldWidth; x++) {
-                html += this.data[x][y] ? "*" : " ";
+
+    public draw() {
+        let html: string = "";
+        for (let y = 0; y < this.fieldHeight; y++) {
+            for(let x = 0; x < this.fieldWidth; x++) {
+                html += this.data[x][y]? "*" : " ";
             }
-            html += "<br>";
+            html+= "<br>";
         }
         this.elField.innerHTML = html;
-    };
-    return Field;
-}());
-var Figure = (function () {
-    function Figure() {
     }
-    return Figure;
-}());
-var FigureSquare = (function (_super) {
-    __extends(FigureSquare, _super);
-    function FigureSquare() {
-        var _this = _super.call(this) || this;
-        _this.field[_this.figX][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 1][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX][_this.figY + 1] = _this.drawOrClear;
-        _this.field[_this.figX + 1][_this.figY + 1] = _this.drawOrClear;
-        return _this;
-    }
-    return FigureSquare;
-}(Figure));
-var FigureHorizontal = (function (_super) {
-    __extends(FigureHorizontal, _super);
-    function FigureHorizontal() {
-        var _this = _super.call(this) || this;
-        _this.field[_this.figX][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 1][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 2][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 3][_this.figY] = _this.drawOrClear;
-        return _this;
-    }
-    return FigureHorizontal;
-}(Figure));
-var FigureZ = (function (_super) {
-    __extends(FigureZ, _super);
-    function FigureZ() {
-        var _this = _super.call(this) || this;
-        _this.field[_this.figX][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 1][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 1][_this.figY + 1] = _this.drawOrClear;
-        _this.field[_this.figX + 2][_this.figY + 1] = _this.drawOrClear;
-        return _this;
-    }
-    return FigureZ;
-}(Figure));
-var FigureL = (function (_super) {
-    __extends(FigureL, _super);
-    function FigureL() {
-        var _this = _super.call(this) || this;
-        _this.field[_this.figX][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 1][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 2][_this.figY] = _this.drawOrClear;
-        _this.field[_this.figX + 2][_this.figY + 1] = _this.drawOrClear;
-        return _this;
-    }
-    return FigureL;
-}(Figure));
-var Game = (function () {
-    function Game() {
+}
+
+
+class Game {
+
+    private currentFigure: Figure;
+    private field: Field;
+
+    constructor(){
         this.field = new Field();
         //this.currentFigure = this.newFigure();
     }
-    Game.prototype.draw = function () {
-        this.field.draw();
-        this.currentFigure = this.newFigure();
-    };
-    Game.prototype.newFigure = function () {
-        var randomFigure = Math.floor(Math.random() * 4);
-        var newFigure;
-        this.newFigure.figX = this.field.fieldWidth / 2 - 2;
-        //this.newFigure.figY = 1;
-        switch (randomFigure) {
+
+    private newFigure(): Figure{
+        let randomFigure = Math.floor(Math.random() * 4);
+
+        let newFigure: Figure;
+
+        switch(randomFigure) {
+
             case 0: {
                 newFigure = new FigureSquare();
                 break;
@@ -117,10 +200,19 @@ var Game = (function () {
             case 3: {
                 newFigure = new FigureL();
             }
+
         }
         return newFigure;
-    };
-    return Game;
-}());
-var game = new Game();
+    }
+
+    public draw(){
+        this.field.draw();
+
+        //this.currentFigure = this.newFigure();
+    }
+}
+
+let game: Game = new Game();
 game.draw();
+
+*/ 

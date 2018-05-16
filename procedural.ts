@@ -1,5 +1,9 @@
-/*const FIELD_WIDTH = 12;
-const FIELD_HEIGHT = 25;
+const FIELD_WIDTH: number = 12;
+const FIELD_HEIGHT: number = 25;
+const LEFT: number = 37;
+const RIGHT: number = 39;
+const UP: number = 38; // for rotate
+const DOWN: number = 40; // for drop
 
 let field = initField();
 let elField = document.getElementById ("field");
@@ -72,6 +76,88 @@ function applyFigure(drawOrClear: boolean): boolean{
     }
 }
 
+function isFigureDown():boolean {
+    switch(figType){
+        case 0: {
+            return field[figX][figY + 2] || field[figX + 1][figY + 2]; // O
+        }
+        case 1: {
+            return field[figX][figY + 1]; // I
+        }
+        case 2: {
+            return field[figX][figY + 1] || field[figX + 1][figY + 2]; // Z
+        }
+        case 3: {
+            return field[figX][figY + 1] || field[figX + 2][figY + 2]; // L
+        }
+        default: {
+            throw "Error figure number";
+        }
+    }
+}
+function isFigureDrop():boolean {
+    switch(figType) {
+        case 0: {
+            return field[figX + 1][figY + 3]; // O
+        }
+        case 1: {
+            return field[figX][figY + 2] // I
+        }
+        case 2: {
+            return field[figX + 1][figY + 3]; // Z
+        }
+        case 3: {
+            return field[figX + 2][figY + 3]; // L
+        }
+    }
+}
+
+
+function moveFigure(event: KeyboardEvent) {
+    switch(event.keyCode){
+        case 39: { // right
+            moveRight();
+            break;
+        }
+        case 37: { // left
+            moveLeft();
+            break;
+        }
+        case 40: { //drop down
+            drop();
+            break;
+        }
+        case 38 : { //rotate figure
+            rotate();
+            break;
+        }
+    }
+}
+function moveRight() {
+    if(figX < FIELD_WIDTH -1){
+        applyFigure(false);
+        figX++;
+        applyFigure(true);
+    }
+}
+function moveLeft() {
+    if(figX > 1){
+        applyFigure(false);
+        figX--;
+        applyFigure(true);
+    }
+}
+
+function drop() {
+    while(!isFigureDrop()){
+        applyFigure(false);
+        figY++;
+        applyFigure(true);
+    }
+}
+function rotate(){
+    //TODO
+}
 function onInterval(){
     if (figType == -1){
         figType = Math.floor(Math.random() * 4);
@@ -82,11 +168,21 @@ function onInterval(){
         applyFigure(false);
         figY++;
         applyFigure(true);
+
+        if(isFigureDown()){
+            figType = -1;
+        }
     }
 
     drawField(elField);
+
 }
+
+
 
 setInterval(function () {onInterval()}, 1000);
 
-*/
+document.addEventListener("keydown",moveFigure);
+
+
+
